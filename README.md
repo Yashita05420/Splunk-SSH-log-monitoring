@@ -14,10 +14,3 @@ In this project we basically build a dashboard containing SSH log events :
 2. SSH log file
 
 ## Steps 
-### Step 1 : 
-We install splunk as splunk is SEIM tool used to analyze , collect and search logs using SPL (Search Processing Language)
-now we go to Settings and upload file from which we analyze logs that is **ssh_logs_new.json** file for our dashboard
-we go to upload data ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/a1e7e49bdae6370e2f79220f23b9da516105d075/Screenshot%20(43).png)
-![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/a4ceb1e8f88808303c68cff0717d0136ff8a44c0/Screenshot%20(44).png)
-![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/1ae46fb897aa4d4e7779196c884174085a16651f/Screenshot%20(46).png)
-Now we create a new dashboard and name it SSH log Dashboard ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/fc7a70660072ddd0a18373971923af2c77c55ba4/Screenshot%20(47).png)
