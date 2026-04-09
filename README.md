@@ -1,5 +1,5 @@
-# Splunk-SSH-log-monitoring
-Splunk Dashboard for SSH logs monitoring
+# Splunk-SSH-log-monitoring 
+This project demonstrates how we monitor SSH logs using Splunk to detect any suspicious activity like brute force attak and any unauthorized access. We Developed interactive dashboard for real-time visualization and analysis of security events.
 ## objective
 In this project we basically build a dashboard containing SSH log events : 
 1. Successful logins
@@ -14,13 +14,15 @@ In this project we basically build a dashboard containing SSH log events :
 2. SSH log file
 
 ## Steps 
-![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ac2955fc1c10f532e55d20979f433032eee8ad83/Screenshot%20(84).png)
-![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ff979a1589eb4ddb2ef4100119b2611671ab934d/Screenshot%20(115).png)
+
+![Successful Login](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ff979a1589eb4ddb2ef4100119b2611671ab934d/Screenshot%20(115).png)
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/70f7c4ab79e93049a858760d49f4006f19829641/Screenshot%20(116).png)
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/c60f910e8c06c3308eb5a93d6ddfb028114170b0/Screenshot%20(117).png)
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/3e96a2d2671b085e4288520ff9aeb236a48a511d/Screenshot%20(118).png)
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/421b26d2bc73bc56823a9e70c77e1f6e1636121a/Screenshot%20(119).png)
+![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ac2955fc1c10f532e55d20979f433032eee8ad83/Screenshot%20(84).png)
+
 
 
 
