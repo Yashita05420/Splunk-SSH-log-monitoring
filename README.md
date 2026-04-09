@@ -68,6 +68,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ac2955fc1c10f532e55d20979f433032eee8ad83/Screenshot%20(84).png)
+![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/a116d56893bcca5d5c5daf6bd4dbf46fff893d02/Screenshot%20(150).png)
 
 
 
