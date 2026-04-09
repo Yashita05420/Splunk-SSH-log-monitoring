@@ -47,14 +47,14 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
 
 
-7. source="ssh_log_new" host="LinuxServer" sourcetype="json" |top username
+6. source="ssh_log_new" host="LinuxServer" sourcetype="json" |top username
    top is used to show most frequenctly used username in form of bar chart
 
    
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/3e96a2d2671b085e4288520ff9aeb236a48a511d/Screenshot%20(118).png)
 
 
-9. source="ssh_log_new" host="LinuxServer" sourcetype="json" | iplocation id.orig_h | stats count by Country | where isnotnull(Country)
+7. source="ssh_log_new" host="LinuxServer" sourcetype="json" | iplocation id.orig_h | stats count by Country | where isnotnull(Country)
    iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.
    stats count by country help to count login from particular country.
    where isnotnull(Country) is used to remove logs where country is missing.
@@ -63,7 +63,7 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/421b26d2bc73bc56823a9e70c77e1f6e1636121a/Screenshot%20(119).png)
 
 
-
+8. source="ssh_logs_new.json" |timechart count by event_type limit=10
 ## Final Dashboard
 
 
