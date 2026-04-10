@@ -68,6 +68,9 @@ In this project we basically build a dashboard containing SSH log events :
 
    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/779a7d915775d830b09dbce4d066010e7a486751/Screenshot%20(145).png)
 
+
+9. source="ssh_logs_new.json" |stats count AS "Total Attempts" by id.resp_h | sort -"Total Attempts" | head 20
+    used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
    
 ## Final Dashboard
 
