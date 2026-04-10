@@ -64,6 +64,11 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 8. source="ssh_logs_new.json" |timechart count by event_type limit=10
+    this command show timeline of success,failure and other events . It is important to detect attack spikes and sudden anomalies
+
+   ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/779a7d915775d830b09dbce4d066010e7a486751/Screenshot%20(145).png)
+
+   
 ## Final Dashboard
 
 
