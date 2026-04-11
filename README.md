@@ -15,7 +15,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 ## Steps 
 1. *Successful logins*<br>
-   **Query**: source="ssh_log_new" host="LinuxServer"<br>
+   **Query**: source="ssh_log_new.json" host="LinuxServer"<br>
               event_type="Successful SSH Logins"<br>
               |stats count by id.orig_h | sort -count<br>
    **Explanation**: firstly we upload data that is "ssh_log_new" json file and then extract data from it then we set host as "Linux Server" and event_type which
@@ -28,7 +28,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 3. *Failed login*<br>
-   **Query**: source="ssh_log_new" host="LinuxServer"<br>
+   **Query**: source="ssh_log_new.json" host="LinuxServer"<br>
               event_type="Failed SSH Logins"<br>
               |stats count by id.orig_h | sort -count<br>
    **Explantion**: filter only failed SSH logins from ssh_log_new<br>
@@ -37,7 +37,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 5. *Connection without Authentication*<br>
-   **Query**:source="ssh_log_new" host="LinuxServer" soucetype="_json"<br>
+   **Query**:source="ssh_log_new.json" host="LinuxServer" soucetype="_json"<br>
              event_type="Multiple Failed Authentication Attempts"<br>
              |stats count by id.orig_h | sort -count<br>
    **Explanation**: This is used to filter only those which have many SSH login failure<br>
@@ -47,7 +47,7 @@ In this project we basically build a dashboard containing SSH log events :
  
  
 6. *Possible Brute force by ip*<br>
-    **Query**:source="ssh_log_new" host-="LinuxServer" sourcetype="_json"<br>
+    **Query**:source="ssh_log_new.json" host-="LinuxServer" sourcetype="_json"<br>
               event_type="Multiple Failed Authentication Attempts"|top id.orig_h <br>
 
               
@@ -55,7 +55,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 7.*Failed login by username*
-   **Query**: source="ssh_log_new" host="LinuxServer" sourcetype="_json" |top username<br>
+   **Query**: source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" |top username<br>
     top is used to show most frequenctly used username in form of bar chart<br>
      **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
     Sorts in descending order and Calculates percentage. Limits results (default: top 10)<br>
@@ -65,7 +65,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 8. *Brute Force Attack With geo-location*<br>
-    **Query**:source="ssh_log_new" host="LinuxServer" sourcetype="_json" <br>
+    **Query**:source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" <br>
               | iplocation id.orig_h | stats count by Country | where isnotnull(Country)<br>
    **Explanation**:iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.<br>
    stats count by country help to count login from particular country.<br>
@@ -83,8 +83,21 @@ In this project we basically build a dashboard containing SSH log events :
    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/779a7d915775d830b09dbce4d066010e7a486751/Screenshot%20(145).png)
 
 
-11. *source="ssh_logs_new.json" |stats count AS "Total Attempts" by id.resp_h | sort -"Total Attempts" | head 20
-    used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
+10.*SSH login Success VS Failure*<br>
+   **Query**: source="ssh_log_new.json" |top limit=20 auth success<br>
+   **Explanation**: show logins in form of true,false and null and count in percentage<br>
+
+   
+   ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/89f9d237268f6ed1ab07e4d0f75ddaf6652a3068/Screenshot%20(152).png)
+   
+
+ 11. *Top 20 targeted Destination IPs*<br>
+     **source**="ssh_logs_new.json" <br>
+     |stats count AS "Total Attempts" by id.resp_h<br>
+     | sort -"Total Attempts" | head 20<br>
+    **Explanation**:used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
+
+
    ![image_alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/8fe5450ab2cb2e500fcd48941af2aec5ab2c508c/Screenshot%20(153).png)
 
    
