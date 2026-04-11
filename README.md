@@ -21,7 +21,7 @@ In this project we basically build a dashboard containing SSH log events :
 2. SSH log file
 
 # Steps 
-## 1.*Total SSH Events*<br>
+## 1. *Total SSH Events*<br>
     **Query**: source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" |stats count As "Total SSH Events"<br>
     **Explanation**: this is used to count total ssh events in ssh log file.<br>
                
