@@ -14,32 +14,34 @@ In this project we basically build a dashboard containing SSH log events :
 2. SSH log file
 
 ## Steps 
-1. We detect successful logins :
-   Query: source="ssh_log_new" host="LinuxServer"<br>
-   event_type="Successful SSH Logins"<br>
-   |stats count by id.orig_h | sort -count<br>
-   Explanation: firstly we upload data that is "ssh_log_new" json file and then extract data from it then we set host as "Linux Server" and event_type which
+1. *Successful logins*<br>
+   **Query**: source="ssh_log_new" host="LinuxServer"<br>
+              event_type="Successful SSH Logins"<br>
+              |stats count by id.orig_h | sort -count<br>
+   **Explanation**: firstly we upload data that is "ssh_log_new" json file and then extract data from it then we set host as "Linux Server" and event_type which
    we want.<br>
    stats is command used in splunk for count number of successful logins and group them by id<br>
-   sort is used for sorting result in descending order
+   sort is used for sorting result in descending order<br>
 
    
 ![Successful Login](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/ff979a1589eb4ddb2ef4100119b2611671ab934d/Screenshot%20(115).png)
 
 
-3. Detect Failed logins:
-   Query: source="ssh_log_new" host="LinuxServer"
-          event_type="Failed SSH Logins"
-          |stats count by id.orig_h | sort -count
-
+3. *Failed login*<br>
+   **Query**: source="ssh_log_new" host="LinuxServer"<br>
+              event_type="Failed SSH Logins"<br>
+              |stats count by id.orig_h | sort -count<br>
+   **Explantion**: filter only failed SSH logins from ssh_log_new<br>
    
 ![Failed Login](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/70f7c4ab79e93049a858760d49f4006f19829641/Screenshot%20(116).png)
 
 
-5. source="ssh_log_new" host="LinuxServer" soucetype="json"
-          event_type="Multiple Failed Authentication Attempts"
-          |stats count by id.orig_h | sort -count
-
+5. *Connection without Authentication*<br>
+   **Query**:source="ssh_log_new" host="LinuxServer" soucetype="json"<br>
+             event_type="Multiple Failed Authentication Attempts"<br>
+             |stats count by id.orig_h | sort -count<br>
+   **Explanation**: This is used to filter only those which have many SSH login failure<br>
+                    usually indicate *Brute Force Attack*<br>
    
  ![Multiple Failed Authentication Attempts](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/c60f910e8c06c3308eb5a93d6ddfb028114170b0/Screenshot%20(117).png)
 
@@ -47,17 +49,22 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
 
 
-6. source="ssh_log_new" host="LinuxServer" sourcetype="json" |top username
-   top is used to show most frequenctly used username in form of bar chart
+6.*Failed login by username*
+   **Query**: source="ssh_log_new" host="LinuxServer" sourcetype="json" |top username<br>
+    top is used to show most frequenctly used username in form of bar chart<br>
+     **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
+    Sorts in descending order and Calculates percentage. Limits results (default: top 10)<br>
 
    
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/3e96a2d2671b085e4288520ff9aeb236a48a511d/Screenshot%20(118).png)
 
 
-7. source="ssh_log_new" host="LinuxServer" sourcetype="json" | iplocation id.orig_h | stats count by Country | where isnotnull(Country)
-   iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.
-   stats count by country help to count login from particular country.
-   where isnotnull(Country) is used to remove logs where country is missing.
+7. *Brute Force Attack With geo-location*<br>
+    **Query**:source="ssh_log_new" host="LinuxServer" sourcetype="json" <br>
+              | iplocation id.orig_h | stats count by Country | where isnotnull(Country)<br>
+   **Explanation**:iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.<br>
+   stats count by country help to count login from particular country.<br>
+   where isnotnull(Country) is used to remove logs where country is missing.<br>
 
 
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/421b26d2bc73bc56823a9e70c77e1f6e1636121a/Screenshot%20(119).png)
