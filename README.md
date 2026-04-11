@@ -3,7 +3,7 @@ This project demonstrates how we monitor SSH logs using Splunk to detect any sus
 We Developed interactive dashboard for real-time visualization and analysis of security events.<br>
 
 
-## Objective
+# Objective
 In this project we basically build a dashboard containing SSH log events : 
 1. Total SSH Events
 2. Successful logins
@@ -16,11 +16,16 @@ In this project we basically build a dashboard containing SSH log events :
 9. SSH login Success Vs Failure
 10. Top 20 Targeted Destination IPs
 
-## Tools used :
+# Tools used :
 1. Splunk
 2. SSH log file
 
-## Steps 
+# Steps 
+# 1.*Total SSH Events*<br>
+    **Query**: 
+
+
+    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/cbd331ed625902db90073a41406260b2f1a4cc56/Screenshot%20(161).png)
 1. *Successful logins*<br>
    **Query**: source="ssh_log_new.json" host="LinuxServer"<br>
               event_type="Successful SSH Logins"<br>
