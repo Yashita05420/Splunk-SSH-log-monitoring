@@ -1,13 +1,20 @@
 # Splunk-SSH-log-monitoring 
-This project demonstrates how we monitor SSH logs using Splunk to detect any suspicious activity like brute force attak and any unauthorized access. We Developed interactive dashboard for real-time visualization and analysis of security events.
+This project demonstrates how we monitor SSH logs using Splunk to detect any suspicious activity like brute force attak and any unauthorized access.<br>
+We Developed interactive dashboard for real-time visualization and analysis of security events.<br>
+
+
 ## Objective
 In this project we basically build a dashboard containing SSH log events : 
-1. Successful logins
-2. failed logins
-3. Connection without Authentication
-4. failed login by user
-5. Possible Brute force
-6. Visualize Brute force attack with geo-location
+1. Total SSH Events
+2. Successful logins
+3. failed logins
+4. Connection without Authentication
+5. failed login by username
+6. Possible Brute force
+7. Visualize Brute force attack with geo-location
+8. SSH Event Trend over Time
+9. SSH login Success Vs Failure
+10. Top 20 Targeted Destination IPs
 
 ## Tools used :
 1. Splunk
@@ -76,7 +83,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 9. *SSH Event Type Trend over Time*<br>
-    **source**="ssh_logs_new.json" |timechart count by event_type limit=10<br>
+    **Explantaion**: source="ssh_logs_new.json" |timechart count by event_type limit=10<br>
    **Explanation**: this command show timeline of success,failure and other events . It is important to detect attack spikes and sudden anomalies<br>
 
 
