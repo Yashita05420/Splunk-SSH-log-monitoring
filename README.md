@@ -90,7 +90,7 @@ In this project we basically build a dashboard containing SSH log events :
    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/779a7d915775d830b09dbce4d066010e7a486751/Screenshot%20(145).png)
 
 
-10.*SSH login Success VS Failure*<br>
+10. *SSH login Success VS Failure*<br>
     **Query**: source="ssh_log_new.json" |top limit=20 auth success<br>
     **Explanation**: show logins in form of true,false and null and count in percentage<br>
 
