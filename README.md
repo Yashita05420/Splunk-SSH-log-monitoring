@@ -37,20 +37,25 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 5. *Connection without Authentication*<br>
-   **Query**:source="ssh_log_new" host="LinuxServer" soucetype="json"<br>
+   **Query**:source="ssh_log_new" host="LinuxServer" soucetype="_json"<br>
              event_type="Multiple Failed Authentication Attempts"<br>
              |stats count by id.orig_h | sort -count<br>
    **Explanation**: This is used to filter only those which have many SSH login failure<br>
                     usually indicate *Brute Force Attack*<br>
    
  ![Multiple Failed Authentication Attempts](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/c60f910e8c06c3308eb5a93d6ddfb028114170b0/Screenshot%20(117).png)
-
  
+ 
+6. *Possible Brute force by ip*<br>
+    **Query**:source="ssh_log_new" host-="LinuxServer" sourcetype="_json"<br>
+              event_type="Multiple Failed Authentication Attempts"|top id.orig_h <br>
+
+              
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
 
 
-6.*Failed login by username*
-   **Query**: source="ssh_log_new" host="LinuxServer" sourcetype="json" |top username<br>
+7.*Failed login by username*
+   **Query**: source="ssh_log_new" host="LinuxServer" sourcetype="_json" |top username<br>
     top is used to show most frequenctly used username in form of bar chart<br>
      **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
     Sorts in descending order and Calculates percentage. Limits results (default: top 10)<br>
@@ -59,8 +64,8 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/3e96a2d2671b085e4288520ff9aeb236a48a511d/Screenshot%20(118).png)
 
 
-7. *Brute Force Attack With geo-location*<br>
-    **Query**:source="ssh_log_new" host="LinuxServer" sourcetype="json" <br>
+8. *Brute Force Attack With geo-location*<br>
+    **Query**:source="ssh_log_new" host="LinuxServer" sourcetype="_json" <br>
               | iplocation id.orig_h | stats count by Country | where isnotnull(Country)<br>
    **Explanation**:iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.<br>
    stats count by country help to count login from particular country.<br>
@@ -70,13 +75,15 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/421b26d2bc73bc56823a9e70c77e1f6e1636121a/Screenshot%20(119).png)
 
 
-8. source="ssh_logs_new.json" |timechart count by event_type limit=10
-    this command show timeline of success,failure and other events . It is important to detect attack spikes and sudden anomalies
+9. *SSH Event Type Trend over Time*<br>
+    **source**="ssh_logs_new.json" |timechart count by event_type limit=10<br>
+   **Explanation**: this command show timeline of success,failure and other events . It is important to detect attack spikes and sudden anomalies<br>
+
 
    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/779a7d915775d830b09dbce4d066010e7a486751/Screenshot%20(145).png)
 
 
-9. source="ssh_logs_new.json" |stats count AS "Total Attempts" by id.resp_h | sort -"Total Attempts" | head 20
+11. *source="ssh_logs_new.json" |stats count AS "Total Attempts" by id.resp_h | sort -"Total Attempts" | head 20
     used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
    ![image_alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/8fe5450ab2cb2e500fcd48941af2aec5ab2c508c/Screenshot%20(153).png)
 
