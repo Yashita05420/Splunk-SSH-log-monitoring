@@ -61,7 +61,7 @@ In this project we basically build a dashboard containing SSH log events :
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
 
 
-7.*Failed login by username*
+7.*Failed login by username*<br>
    **Query**: source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" |top username<br>
     top is used to show most frequenctly used username in form of bar chart<br>
      **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
