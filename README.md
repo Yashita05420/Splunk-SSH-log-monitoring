@@ -16,8 +16,8 @@ In this project we basically build a dashboard containing SSH log events :
 ## Steps 
 1. We detect successful logins :
    Query: source="ssh_log_new" host="LinuxServer"
-          event_type="Successful SSH Logins"
-          |stats count by id.orig_h | sort -count
+   event_type="Successful SSH Logins"
+   |stats count by id.orig_h | sort -count
    Explanation: firstly we upload data that is "ssh_log_new" json file and then extract data from it then we set host as "Linux Server" and event_type which
    we want.
    stats is command used in splunk for count number of successful logins and group them by id
