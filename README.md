@@ -24,8 +24,9 @@ In this project we basically build a dashboard containing SSH log events :
 # 1.*Total SSH Events*<br>
     **Query**: 
 
+![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/d8411607ba79eb01a58045a5c17abbfd381d5f2e/Screenshot%20(161).png)
 
-    ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/cbd331ed625902db90073a41406260b2f1a4cc56/Screenshot%20(161).png)
+
 1. *Successful logins*<br>
    **Query**: source="ssh_log_new.json" host="LinuxServer"<br>
               event_type="Successful SSH Logins"<br>
