@@ -22,8 +22,8 @@ In this project we basically build a dashboard containing SSH log events :
 
 # Steps 
 ## 1. *Total SSH Events*<br>
-    **Query**: source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" |stats count As "Total SSH Events"<br>
-    **Explanation**: this is used to count total ssh events in ssh log file.<br>
+     Query: source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" |stats count As "Total SSH Events"
+     Explanation: this is used to count total ssh events in ssh log file.
                
 
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/d8411607ba79eb01a58045a5c17abbfd381d5f2e/Screenshot%20(161).png)
