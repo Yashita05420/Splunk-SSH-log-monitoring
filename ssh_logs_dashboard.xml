@@ -1,0 +1,157 @@
+<form version="1.1" theme="light">
+  <label>SSH Logs Dashboard</label>
+  <fieldset submitButton="true">
+    <input type="time" token="time_range">
+      <label>Time Range</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Total SSH Events</title>
+        <search>
+          <query>source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer"  |stats count As "Total SSH Events"</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="height">114</option>
+        <option name="rangeColors">["0x118832","0x1182f3","0xf8be34","0xd94e17","0x1182f3"]</option>
+        <option name="rangeValues">[0,30,70,140]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Failed Logins</title>
+        <search>
+          <query>source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" event_type="Failed SSH Login"  |stats count As "Failed Logins"</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xd41f1f"]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Successful Logins</title>
+        <search>
+          <query>source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" event_type="Successful SSH Login"  |stats count As "Successful Logins"</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0x118832"]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Connection without Authentication</title>
+        <search>
+          <query>source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" event_type="Connection without Authentication"  |stats count As "Connection without Authentication"</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xd94e17"]</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Failed Login by username</title>
+        <search>
+          <query>source="ssh_logs_new.json" sourcetype="_json" host="LinuxServer" event_type="Failed SSH login" | top username</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <table>
+        <title>Possible Brute Force by IP Address</title>
+        <search>
+          <query>source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" event_type="Multiple Failed Authentication Attempts" | top id.orig_h</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <map>
+        <title>Brute Force Attack with geo-location</title>
+        <search>
+          <query>source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" event_type="Multiple Failed Authentication Attempts" 
+| table id.orig_h
+| iplocation id.orig_h
+| stats count by Country
+| geom geo_countries featureIdField="Country"</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="mapping.type">choropleth</option>
+      </map>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>SSH Event Type Trend Over Time</title>
+        <search>
+          <query>source="ssh_logs_new.json" |timechart count by event_type limit=10</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>SSH Login Success vs Failure</title>
+        <search>
+          <query>source="ssh_logs_new.json" |top limit=20 auth_success</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Top 20 Targeted Destination IPs</title>
+        <search>
+          <query>source="ssh_logs_new.json" 
+ |stats count AS "Total Attempts" by id.resp_h
+ | sort -"Total Attempts" | head 20</query>
+          <earliest>$time_range.earliest$</earliest>
+          <latest>$time_range.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+</form>
