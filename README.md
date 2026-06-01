@@ -63,8 +63,8 @@ In this project we basically build a dashboard containing SSH log events :
  
  
 ## 5. *Possible Brute force by ip*<br>
-    **Query**:source="ssh_log_new.json" host-="LinuxServer" sourcetype="_json"<br>
-              event_type="Multiple Failed Authentication Attempts"|top id.orig_h <br>
+ **Query**:source="ssh_log_new.json" host-="LinuxServer" sourcetype="_json"<br>
+              event_type="Multiple Failed Authentication Attempts"|top id.orig_h<br>
 
               
 ![image alt](https://github.com/Yashita05420/Splunk-SSH-log-monitoring/blob/7b44c5c32b9d0a2d0922de69d16c0e72d8b00219/Screenshot%20(76).png)
@@ -81,7 +81,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 7. *Brute Force Attack With geo-location*<br>
-    **Query**:source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" 
+**Query**:source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" 
               | iplocation id.orig_h | stats count by Country | where isnotnull(Country)
    **Explanation**:iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.<br>
    stats count by country help to count login from particular country.<br>
@@ -100,7 +100,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 9. *SSH login Success VS Failure*<br>
-    **Query**: source="ssh_log_new.json" |top limit=20 auth success
+ **Query**: source="ssh_log_new.json" |top limit=20 auth success
 **Explanation**: show logins in form of true,false and null and count in percentage<br>
 
    
@@ -108,7 +108,7 @@ In this project we basically build a dashboard containing SSH log events :
    
 
 ## 10. *Top 20 targeted Destination IPs*<br>
-     **source**="ssh_logs_new.json" 
+ **Query**: source="ssh_logs_new.json" 
      |stats count AS "Total Attempts" by id.resp_h
      | sort -"Total Attempts" | head 20
  **Explanation**:used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
