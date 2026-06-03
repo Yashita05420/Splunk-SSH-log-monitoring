@@ -31,7 +31,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 2. *Successful logins*<br>
-     Query: source="ssh_log_new.json" host="LinuxServer"
+     Query: source="ssh_logs_new.json" host="LinuxServer"
               event_type="Successful SSH Logins"
               |stats count by id.orig_h | sort -count
    **Explanation**: firstly we upload data that is "ssh_log_new" json file and then extract data from it then we set host as "Linux Server" and event_type which
@@ -44,7 +44,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 3. *Failed login*<br>
-     Query: source="ssh_log_new.json" host="LinuxServer"
+     Query: source="ssh_logs_new.json" host="LinuxServer"
               event_type="Failed SSH Logins"
               |stats count by id.orig_h | sort -count
    **Explantion**: filter only failed SSH logins from ssh_log_new<br>
@@ -53,7 +53,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 4. *Connection without Authentication*<br>
-     Query:source="ssh_log_new.json" host="LinuxServer" soucetype="_json"
+     Query:source="ssh_logs_new.json" host="LinuxServer" soucetype="_json"
              event_type="Multiple Failed Authentication Attempts"
              |stats count by id.orig_h | sort -count
    **Explanation**: This is used to filter only those which have many SSH login failure<br>
@@ -63,7 +63,7 @@ In this project we basically build a dashboard containing SSH log events :
  
  
 ## 5. *Possible Brute force by ip*<br>
- **Query**:source="ssh_log_new.json" host-="LinuxServer" sourcetype="_json"<br>
+ **Query**:source="ssh_logs_new.json" host-="LinuxServer" sourcetype="_json"<br>
               event_type="Multiple Failed Authentication Attempts"|top id.orig_h<br>
 
               
@@ -71,7 +71,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 6.*Failed login by username*<br>
-    Query: source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" |top username
+    Query: source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" |top username
     top is used to show most frequenctly used username in form of bar chart<br>
 **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
     Sorts in descending order and Calculates percentage. Limits results (default: top 10)<br>
@@ -81,7 +81,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 7. *Brute Force Attack With geo-location*<br>
-**Query**:source="ssh_log_new.json" host="LinuxServer" sourcetype="_json" 
+**Query**:source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" 
               | iplocation id.orig_h | stats count by Country | where isnotnull(Country)
    **Explanation**:iplocation- this command is used to convert ip address to geographical information add other feilds like country, city and other regions.<br>
    stats count by country help to count login from particular country.<br>
@@ -100,7 +100,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 
 ## 9. *SSH login Success VS Failure*<br>
- **Query**: source="ssh_log_new.json" |top limit=20 auth success
+ **Query**: source="ssh_logs_new.json" |top limit=20 auth success
 **Explanation**: show logins in form of true,false and null and count in percentage<br>
 
    
