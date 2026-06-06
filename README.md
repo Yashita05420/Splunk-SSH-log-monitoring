@@ -63,7 +63,7 @@ In this project we basically build a dashboard containing SSH log events :
  
  
 ## 5. *Possible Brute force by ip*<br>
- **Query**:source="ssh_logs_new.json" host-="LinuxServer" sourcetype="_json"<br>
+          source="ssh_logs_new.json" host-="LinuxServer" sourcetype="_json"<br>
               event_type="Multiple Failed Authentication Attempts"|top id.orig_h<br>
 
               
@@ -72,7 +72,7 @@ In this project we basically build a dashboard containing SSH log events :
 
 ## 6.*Failed login by username*<br>
        source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" |top username
-    top is used to show most frequenctly used username in form of bar chart<br>
+        top is used to show most frequenctly used username in form of bar chart<br>
 **Explanation**:Finds the most frequently occurring usernames. Counts how many times each username appears<br>
     Sorts in descending order and Calculates percentage. Limits results (default: top 10)<br>
 
@@ -108,7 +108,7 @@ In this project we basically build a dashboard containing SSH log events :
    
 
 ## 10. *Top 20 targeted Destination IPs*<br>
-      source="ssh_logs_new.json" 
+    source="ssh_logs_new.json" 
      |stats count AS "Total Attempts" by id.resp_h
      | sort -"Total Attempts" | head 20
  **Explanation**:used to count number of events renamed as Total Attempts and are grouped by id.resp_h (destination ip)
